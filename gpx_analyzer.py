@@ -121,9 +121,11 @@ def plot_profile(trkpts, wpts):
 
     fig, ax = plt.subplots(figsize=(10, 6))
 
-    # plot colored segments
+    # draw overall elevation profile
+    ax.plot(dists, eles, color='black', linewidth=1)
+
+    # fill segments with colors based on average slope
     for start_d, end_d, slope in segments:
-        # collect points within this segment
         seg_d = [start_d]
         seg_e = [interpolate_elevation(start_d, dists, eles)]
         for d, e in zip(dists, eles):
@@ -133,7 +135,7 @@ def plot_profile(trkpts, wpts):
         seg_d.append(end_d)
         seg_e.append(interpolate_elevation(end_d, dists, eles))
         color = slope_to_color(slope)
-        ax.plot(seg_d, seg_e, color=color, linewidth=2)
+        ax.fill_between(seg_d, seg_e, [0]*len(seg_d), color=color, alpha=0.3)
 
     # mark waypoints
     positions = waypoint_positions(wpts, trkpts, dists)
