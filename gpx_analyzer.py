@@ -87,7 +87,7 @@ def slope_to_color(slope):
         return 'red'
 
 
-def segment_slopes(dists, eles, segment=100.0):
+def segment_slopes(dists, eles, segment=15.0):
     total = dists[-1]
     boundaries = [i for i in range(0, int(total // segment) * int(segment) + int(segment) + 1, int(segment))]
     if boundaries[-1] < total:
@@ -149,7 +149,11 @@ def plot_profile(trkpts, wpts):
     for dist_pos, name in positions:
         ele = interpolate_elevation(dist_pos, dists, eles)
         ax.scatter([dist_pos], [ele], color='blue')
-        ax.text(dist_pos, ele + 5, name, rotation=45, ha='right', va='bottom')
+        # ax.text(dist_pos, ele + 5, name, rotation=45, ha='right', va='bottom')
+        fontsize = 12
+        text_length = len(name) * fontsize
+        ax.annotate(name, xy=(dist_pos, ele), xytext=(-text_length, 20), textcoords='offset points',
+                    arrowprops=dict(arrowstyle='-', color='blue'), fontsize=fontsize)
 
     ax.set_xlabel('Distance (m)')
     ax.set_ylabel('Elevation (m)')
