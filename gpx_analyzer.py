@@ -3,8 +3,11 @@ import math
 import argparse
 import matplotlib
 import matplotlib.pyplot as plt
-
-matplotlib.rc('font', family='STHeiti')
+import sys
+if sys.platform == 'win32':
+    matplotlib.rc('font', family='Microsoft JhengHei')
+elif sys.platform == 'darwin':
+    matplotlib.rc('font', family='STHeiti')
 
 def haversine(lat1, lon1, lat2, lon2):
     """Calculate the great-circle distance between two points."""
