@@ -1,8 +1,10 @@
 import xml.etree.ElementTree as ET
 import math
 import argparse
+import matplotlib
 import matplotlib.pyplot as plt
 
+matplotlib.rc('font', family='STHeiti')
 
 def haversine(lat1, lon1, lat2, lon2):
     """Calculate the great-circle distance between two points."""
@@ -68,7 +70,9 @@ def interpolate_elevation(distance, dists, eles):
 
 def slope_to_color(slope):
     pct = slope * 100
-    if pct < 3:
+    if pct < 0:
+        return 'blue'
+    elif pct < 3:
         return 'darkgreen'
     elif pct < 6:
         return 'limegreen'
